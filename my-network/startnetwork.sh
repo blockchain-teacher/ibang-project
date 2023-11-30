@@ -19,9 +19,11 @@ if [ ! -d config ]; then
     mkdir config
 fi
 
+if [ ! -d organizations/fabric-ca ]; then
+    mkdir -p organizations/fabric-ca
+fi
+
 # docker network 시작 - ca
-
-
 echo "---Generating certificates using fabric ca"
 set -x
 docker-compose -f docker-compose.yaml up -d ca_org1 ca_org2 ca_org3 ca_orderer
@@ -49,3 +51,9 @@ sleep 5
 
 echo "--- ccp generation "
 ./ccp-generate.sh #org2 -> connection-org2.json
+
+if [ ! -d ../application/config ]; then
+    mkdir ../application/config
+fi
+
+cp ./connection-org2.json ../application/config

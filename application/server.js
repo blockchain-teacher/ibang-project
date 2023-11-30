@@ -9,10 +9,10 @@ var fs = require('fs');
 
 // lib/APPUtil.js, CAUtils.js
 const { buildCAClient, enrollAdmin, registerAndEnrollUser } = require('./lib/CAUtils.js');
-const { buildCCPOrg1, buildWallet } = require('./lib/APPUtils.js');
+const { buildCCPOrg2, buildWallet } = require('./lib/APPUtils.js');
 
 // connection profile 빌드
-const ccp = buildCCPOrg1();
+const ccp = buildCCPOrg2();
 
 // 서버설정 - 미들웨어(static, body-parser), app객체
 var app = express();
@@ -21,9 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // constant 설정 - 채널명, 체인코드명, 웰렛경로, 연결할 기관ID
-const mspOrg1 = 'Org1MSP';
+const mspOrg = 'Org2MSP';
 const walletPath = path.join(__dirname, 'wallet');
-const channelName = 'tempchannel';
+const channelName = 'toychannel';
 const chaincodeName = 'exp';
 
 // HTML 라우팅 '/' GET index.html
@@ -53,9 +53,9 @@ app.post('/admin', async(req, res) => {
     console.log('/admin POST - ', aid, apw);
 
     try {
-        const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+        const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org2.example.com');
         const wallet = await buildWallet(Wallets, walletPath);
-        await enrollAdmin(caClient, wallet, mspOrg1, aid, apw);
+        await enrollAdmin(caClient, wallet, mspOrg, aid, apw);
 
         var rObj = {};
         rObj.result = "success";
@@ -77,9 +77,9 @@ app.post('/user', async(req, res) => {
 
     console.log('/user POST - ', uid, affiliation);
     try {
-        const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+        const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org2.example.com');
         const wallet = await buildWallet(Wallets, walletPath);
-        await registerAndEnrollUser(caClient, wallet, mspOrg1, uid, affiliation);
+        await registerAndEnrollUser(caClient, wallet, mspOrg, uid, affiliation);
 
         var rObj = {};
         rObj.result = "success";

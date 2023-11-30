@@ -10,4 +10,6 @@ fi
 
 rm -rf config/*
 
-rm -rf connection-org1.json
+rm -rf connection-org2.json
+
+
