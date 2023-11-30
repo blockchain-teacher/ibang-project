@@ -7,7 +7,7 @@ set -ex
 
 # org 2 -> 구성
 
-NET_DIR=~/dev/busan-project/my-network
+NET_DIR=${IBANG_HOME}/my-network
 export FABRIC_CFG_PATH=${NET_DIR}
 
 export CORE_PEER_TLS_ENABLED=true
