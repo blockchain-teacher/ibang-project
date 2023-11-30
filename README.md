@@ -10,6 +10,10 @@ docker-compose
 jq
 
 # network start
+IBANG_HOME evironment variable setting
+`export IBANG_HOME=(installed dir)`
+ex) export IBANG_HOME=${PWD}
+
 ```
 cd my-network
 mkdir -p config organizations/fabric-ca
